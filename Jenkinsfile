@@ -36,10 +36,12 @@ pipeline {
                 }
             }
         }
-        stage ("Helm package") {
-            steps {
-                    sh "helm package springboot"
+        stage ('Helm Deploy') {
+          steps {
+            script {
+                sh "helm upgrade first --install my-helm-chart --namespace helm-deployment --set image.tag=$BUILD_NUMBER"
                 }
-         }
+            }
+        }
     }
 }
